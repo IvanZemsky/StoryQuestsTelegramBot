@@ -1,4 +1,5 @@
 import dotenv from "dotenv"
+import http from "http";
 import TGApi, { SendPhotoOptions } from "node-telegram-bot-api"
 import { getStoryById } from "./src/api/getStoryById"
 import { setPath } from "./src/utils/setPath"
@@ -89,3 +90,14 @@ BOT.on("callback_query", async (msg) => {
       )
    }
 })
+
+const PORT = process.env.PORT || 3000;
+
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Telegram bot is running...");
+  })
+  .listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
