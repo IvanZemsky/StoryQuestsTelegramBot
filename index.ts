@@ -12,7 +12,7 @@ type NextSceneData = {
    nextSceneId: string
 }
 
-const TOKEN = process.env.TOKEN
+const TOKEN = process.env.TOKEN!
 
 const BOT = new TGApi(TOKEN, { polling: true })
 
@@ -55,8 +55,8 @@ BOT.on("message", async (msg) => {
 })
 
 BOT.on("callback_query", async (msg) => {
-   const chatId = msg.message.chat.id
-   const data: NextSceneData = JSON.parse(msg.data)
+   const chatId = msg.message!.chat.id
+   const data: NextSceneData = JSON.parse(msg.data!)
 
    try {
       const res = await getScene(data.storyId, data.nextSceneId)
@@ -79,10 +79,8 @@ BOT.on("callback_query", async (msg) => {
       }
 
       BOT.sendPhoto(chatId, res.img, options)
-      if (res.type === "end") {
-         BOT.sendMessage(chatId, "*This is the end of the story*", {
-            parse_mode: "MarkdownV2",
-         })
+      if (res.type === 'end') {
+         BOT.sendMessage(chatId, "*This is the end of the story*", {parse_mode: 'MarkdownV2'})
       }
    } catch (error) {
       BOT.sendMessage(
