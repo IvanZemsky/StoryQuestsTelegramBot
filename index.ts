@@ -14,7 +14,11 @@ type NextSceneData = {
 
 const TOKEN = process.env.TOKEN
 
-const BOT = new TGApi(TOKEN, { polling: true })
+export const BOT = new TGApi(TOKEN, { webHook: true })
+
+const BOT_URL = 'https://story-quests-telegram-bot.vercel.app/';
+
+BOT.setWebHook(`${BOT_URL}/webhook`);
 
 BOT.on("message", async (msg) => {
    const chatId = msg.chat.id
