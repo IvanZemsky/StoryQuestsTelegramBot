@@ -14,11 +14,7 @@ type NextSceneData = {
 
 const TOKEN = process.env.TOKEN
 
-export const BOT = new TGApi(TOKEN, { webHook: true })
-
-const BOT_URL = 'https://story-quests-telegram-bot.vercel.app/';
-
-BOT.setWebHook(`${BOT_URL}/webhook`);
+const BOT = new TGApi(TOKEN, { polling: true })
 
 BOT.on("message", async (msg) => {
    const chatId = msg.chat.id
@@ -83,8 +79,10 @@ BOT.on("callback_query", async (msg) => {
       }
 
       BOT.sendPhoto(chatId, res.img, options)
-      if (res.type === 'end') {
-         BOT.sendMessage(chatId, "*This is the end of the story*", {parse_mode: 'MarkdownV2'})
+      if (res.type === "end") {
+         BOT.sendMessage(chatId, "*This is the end of the story*", {
+            parse_mode: "MarkdownV2",
+         })
       }
    } catch (error) {
       BOT.sendMessage(
