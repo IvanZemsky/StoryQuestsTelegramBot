@@ -1,0 +1,1 @@
+export const setCallbackData = (...strings: string[]) => strings.join(':')

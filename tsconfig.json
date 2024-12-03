@@ -6,7 +6,10 @@
     "outDir": "./dist", 
     "rootDir": "./",
     "skipLibCheck": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["index.ts", "src/**/*.ts"],
   "exclude": ["node_modules"]

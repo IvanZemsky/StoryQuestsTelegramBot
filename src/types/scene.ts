@@ -4,6 +4,11 @@ export type SceneAnswer = {
    nextSceneId: string
 }
 
+export type NextSceneData = {
+   storyId: string
+   nextSceneId: string
+}
+
 export type Scene = {
    _id: string
    sceneId: string
