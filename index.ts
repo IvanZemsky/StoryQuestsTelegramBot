@@ -5,6 +5,8 @@ import { Commands } from "@/constants/commands"
 import { Actions } from "@/constants/actions"
 import { startQuest } from "@/actions/startQuest"
 import { setNextScene } from "@/actions/setNextScene"
+import { start } from "@/commands/start"
+import '@/commands'
 
 dotenv.config()
 
@@ -13,7 +15,10 @@ BOT.on("message", async (msg) => {
 
    switch (msg.text) {
       case Commands.Start:
-         await startQuest(chatId)
+         await start(chatId)
+         break
+      case Commands.Search:
+         await start(chatId)
          break
       default:
          BOT.sendMessage(chatId, "Command not found")

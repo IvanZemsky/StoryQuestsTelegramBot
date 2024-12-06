@@ -5,5 +5,6 @@ import { Commands } from "@/constants/commands"
 export const BOT = new TGApi(TOKEN, { polling: true })
 
 BOT.setMyCommands([
-   {command: Commands.Start, description: 'Start using the bot'}
+   { command: Commands.Start, description: "Start using the bot" },
+   { command: Commands.Search, description: "Search for the stories" },
 ])
