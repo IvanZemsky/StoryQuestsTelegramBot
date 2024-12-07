@@ -1,26 +1,36 @@
-import axios from "axios";
-import { Story } from "@/types/story";
+import axios from "axios"
+import { Story } from "@/types/story"
 
-const limit = 5
-const page = 0
+type Args = {
+   limit: number
+   page: number
+}
 
-export const getStories = async (storyId: string, nextSceneId: string): Promise<Story>  => {
+export const getStories = async ({
+   limit,
+   page,
+}: Args): Promise<{ data: Story[]; totalCount: number }> => {
    try {
-     const response = await axios.get(
-       `https://story-quests-backend.onrender.com/stories`,
-       {
-         params: {
-            limit, page
-         }
-       }
-     );
-     return response.data;
+      const response = await axios.get(
+         `https://story-quests-backend.onrender.com/stories`,
+         {
+            params: {
+               limit,
+               page,
+            },
+         },
+      )
+
+      return {
+         data: response.data,
+         totalCount: +response.headers["x-total-count"],
+      }
    } catch (error) {
-     if (axios.isAxiosError(error)) {
-       console.error("Axios error:", error.response?.data || error.message);
-     } else {
-       console.error("Unexpected error:", error);
-     }
-     throw error;
+      if (axios.isAxiosError(error)) {
+         console.error("Axios error:", error.response?.data || error.message)
+      } else {
+         console.error("Unexpected error:", error)
+      }
+      throw error
    }
- };
+}
