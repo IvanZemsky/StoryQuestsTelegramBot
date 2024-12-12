@@ -4,11 +4,15 @@ import { Story } from "@/types/story"
 type Args = {
    limit: number
    page: number
+   search?: string
+   only_count?: boolean
 }
 
 export const getStories = async ({
    limit,
    page,
+   search = "",
+   only_count,
 }: Args): Promise<{ data: Story[]; totalCount: number }> => {
    try {
       const response = await axios.get(
@@ -17,6 +21,8 @@ export const getStories = async ({
             params: {
                limit,
                page,
+               search,
+               only_count,
             },
          },
       )

@@ -4,6 +4,7 @@ export type Story = {
    description: string
    img: string
    author: string
+   tags: string[]
    sceneCount: number
    passes: number
    likes: number

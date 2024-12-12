@@ -24,18 +24,18 @@ BOT.on("message", async (msg) => {
 })
 
 BOT.on("callback_query", async (msg) => {
-   const chatId = msg.message.chat.id;
-   const data = msg.data.split(':');
+   const chatId = msg.message.chat.id
+   const data = msg.data.split(":")
 
    switch (data[0]) {
       case Actions.StartQuest:
-         await startQuest(chatId);
+         await startQuest(chatId)
          break
       case Actions.SetNextScene:
-         await setNextScene(chatId, data);
+         await setNextScene(chatId, data)
          break
       default:
-         BOT.sendMessage(chatId, "Command not found");
-         break;
+         BOT.sendMessage(chatId, "Command not found")
+         break
    }
-});
+})
