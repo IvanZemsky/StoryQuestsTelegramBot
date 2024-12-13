@@ -1,42 +1,52 @@
-import { getStories } from "@/api/getStories"
 import { BOT } from "@/bot/bot"
-import { Story } from "@/types/story"
-import { setStoryCard } from "./setStoryCard"
+import { waitForMessage } from "@/bot/listeners/waitForMessage"
+import { getStoriesCount } from "./getStoriesCount"
+import { pageLimit } from "@/api/constants"
+import { calculatePages, displayPagination, sendPage } from "@/helpers/pagination"
 
-const limit = 5
-const page = 0
-
-export const search = async (chatId: number) => {
+export const handleStorySearchQuery = async (chatId: number, query: string | null) => {
    try {
-      const response = await getStories({ limit, page, only_count: true })
-      const { totalCount } = response
+      const totalCount = await getStoriesCount(query)
+      const pages = calculatePages(totalCount, pageLimit)
 
-      const pages = Math.ceil(totalCount / limit)
+      displayPagination(chatId, totalCount, pageLimit)
 
-      if (totalCount === 0) {
-         BOT.sendMessage(chatId, "Nothing found")
-      } else {
-         BOT.sendMessage(chatId, `Found ${pages} pages. Select a page (1-${pages}):`)
+      if (totalCount === 0) return
 
-         BOT.once("message", async (pageMsg) => {
-            const pageNumber = +pageMsg.text
-            if (isNaN(pageNumber) || pageNumber < 1 || pageNumber > pages) {
-               BOT.sendMessage(chatId, "Invalid page number. Try again.")
-               return
-            }
+      while (true) {
+         const pageMessage = await waitForMessage(chatId)
+         const pageInput = pageMessage.text.trim().toLowerCase()
 
-            const storiesResponse = await getStories({ limit, page: pageNumber - 1 })
-            const stories: Story[] = storiesResponse.data
+         if (pageInput === "cancel") {
+            await BOT.sendMessage(chatId, "Search cancelled.")
+            return
+         }
 
-            if (stories.length > 0) {
-               stories.forEach(async (story) => setStoryCard(chatId, story))
-            } else {
-               BOT.sendMessage(chatId, "No stories found on this page.")
-            }
-         })
+         const pageNumber = parseInt(pageInput, 10)
+         if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= pages) {
+            await sendPage(chatId, query, pageNumber)
+            break
+         } else {
+            await BOT.sendMessage(
+               chatId,
+               `Invalid page number. Please enter a number between 1 and ${pages}.`,
+            )
+         }
       }
    } catch (error) {
-      BOT.sendMessage(chatId, "An error occurred during the search.")
-      console.error(error)
+      BOT.sendMessage(
+         chatId,
+         "An error occurred during the search. Please try again later.",
+      )
+      console.error("Search error:", error)
    }
+}
+
+export const search = async (chatId: number) => {
+   BOT.sendMessage(chatId, "🔍 Please enter your search query:")
+
+   const queryMessage = await waitForMessage(chatId)
+   const searchQuery = queryMessage.text
+
+   await handleStorySearchQuery(chatId, searchQuery)
 }

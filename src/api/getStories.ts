@@ -1,19 +1,13 @@
 import axios from "axios"
 import { Story } from "@/types/story"
-
-type Args = {
-   limit: number
-   page: number
-   search?: string
-   only_count?: boolean
-}
+import { SearchStoryArgs } from "./types";
 
 export const getStories = async ({
    limit,
    page,
-   search = "",
+   search = null,
    only_count,
-}: Args): Promise<{ data: Story[]; totalCount: number }> => {
+}: SearchStoryArgs): Promise<{ data: Story[]; totalCount: number }> => {
    try {
       const response = await axios.get(
          `https://story-quests-backend.onrender.com/stories`,
