@@ -23,16 +23,17 @@ BOT.on("message", async (msg) => {
    }
 })
 
-BOT.on("callback_query", async (msg) => {
-   const chatId = msg.message.chat.id
-   const data = msg.data.split(":")
+BOT.on("callback_query", async (ctx) => {
+   const chatId = ctx.message.chat.id
+   const queryId = ctx.id
+   const data = ctx.data.split(":")
 
    switch (data[0]) {
       case Actions.StartQuest:
-         await startQuest(chatId)
+         await startQuest(chatId, queryId)
          break
       case Actions.SetNextScene:
-         await setNextScene(chatId, data)
+         await setNextScene(chatId, queryId, data)
          break
       default:
          BOT.sendMessage(chatId, "Command not found")

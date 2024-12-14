@@ -4,7 +4,7 @@ import { getStoriesCount } from "./getStoriesCount"
 import { pageLimit } from "@/api/constants"
 import { calculatePages, displayPagination, sendPage } from "@/helpers/pagination"
 
-export const handleStorySearchQuery = async (chatId: number, query: string | null) => {
+export async function handleStorySearchQuery (chatId: number, query: string | null): Promise<void> {
    try {
       const totalCount = await getStoriesCount(query)
       const pages = calculatePages(totalCount, pageLimit)
@@ -42,7 +42,7 @@ export const handleStorySearchQuery = async (chatId: number, query: string | nul
    }
 }
 
-export const search = async (chatId: number) => {
+export async function search(chatId: number): Promise<void> {
    BOT.sendMessage(chatId, "🔍 Please enter your search query:")
 
    const queryMessage = await waitForMessage(chatId)

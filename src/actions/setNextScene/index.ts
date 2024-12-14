@@ -16,7 +16,8 @@ const setInlineKeyboard = (
       },
    ])
 
-export const setNextScene = async (chatId: number, data: string[]) => {
+export const setNextScene = async (chatId: number, queryId: string, data: string[]) => {
+   console.log('started scene')
    const payload: NextSceneData = {
       storyId: data[1],
       nextSceneId: data[2],
@@ -45,5 +46,7 @@ export const setNextScene = async (chatId: number, data: string[]) => {
          chatId,
          "An error occurred while sending the message. Please try again later.",
       )
+   } finally {
+      await BOT.answerCallbackQuery(queryId)
    }
 }
