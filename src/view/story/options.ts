@@ -1,5 +1,5 @@
-import { Actions } from "@/constants/actions"
-import { setCallbackData } from "@/helpers/setCallbackData"
+import { Actions } from "@/shared/constants/actions"
+import { setCallbackData } from "@/shared/helpers/setCallbackData"
 import { SendPhotoOptions } from "node-telegram-bot-api"
 
 export const setStoryCardOptions = (

@@ -1,19 +1,18 @@
 import dotenv from "dotenv"
 import { BOT } from "./src/bot/bot"
-import "./server"
-import { Commands } from "@/constants/commands"
-import { Actions } from "@/constants/actions"
-import { startQuest } from "@/actions/startQuest"
+import { Commands } from "@/shared/constants/commands"
+import { Actions } from "@/shared/constants/actions"
 import { setNextScene } from "@/actions/setNextScene"
 import { start } from "@/commands/start"
 import { search } from "@/commands/search"
+import "./server"
 
 dotenv.config()
 
-BOT.on("message", async (msg) => {
-   const chatId = msg.chat.id
+BOT.on("message", async (ctx) => {
+   const chatId = ctx.chat.id
 
-   switch (msg.text) {
+   switch (ctx.text) {
       case Commands.Start:
          await start(chatId)
          break
@@ -29,9 +28,6 @@ BOT.on("callback_query", async (ctx) => {
    const data = ctx.data.split(":")
 
    switch (data[0]) {
-      case Actions.StartQuest:
-         await startQuest(chatId, queryId)
-         break
       case Actions.SetNextScene:
          await setNextScene(chatId, queryId, data)
          break

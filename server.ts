@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import {PORT} from './src/constants/process'
+import {PORT} from './src/shared/constants/process'
 import http from 'http'
 
 try {

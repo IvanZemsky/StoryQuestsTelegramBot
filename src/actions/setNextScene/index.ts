@@ -1,8 +1,8 @@
-import { getScene } from "@/api/getScene"
 import { BOT } from "@/bot/bot"
-import { Actions } from "@/constants/actions"
-import { setCallbackData } from "@/helpers/setCallbackData"
-import { NextSceneData, SceneAnswer } from "@/types/scene"
+import { sceneService } from "@/services/scene"
+import { Actions } from "@/shared/constants/actions"
+import { setCallbackData } from "@/shared/helpers/setCallbackData"
+import { NextSceneData, SceneAnswer } from "@/shared/types/scene"
 import { InlineKeyboardButton, SendPhotoOptions } from "node-telegram-bot-api"
 
 const setInlineKeyboard = (
@@ -17,14 +17,13 @@ const setInlineKeyboard = (
    ])
 
 export const setNextScene = async (chatId: number, queryId: string, data: string[]) => {
-   console.log('started scene')
    const payload: NextSceneData = {
       storyId: data[1],
       nextSceneId: data[2],
    }
 
    try {
-      const res = await getScene(payload.storyId, payload.nextSceneId)
+      const res = await sceneService.getScene(payload.storyId, payload.nextSceneId)
       const caption = `*${res.title}*\n${res.description}`
 
       const options: SendPhotoOptions = {

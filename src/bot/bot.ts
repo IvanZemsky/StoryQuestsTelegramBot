@@ -1,6 +1,6 @@
 import TGApi from "node-telegram-bot-api"
-import { TOKEN } from "@/constants/process"
-import { Commands } from "@/constants/commands"
+import { TOKEN } from "@/shared/constants/process"
+import { Commands } from "@/shared/constants/commands"
 
 export const BOT = new TGApi(TOKEN, { polling: true })
 
