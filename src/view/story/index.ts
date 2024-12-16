@@ -1,8 +1,8 @@
 import { BOT } from "@/bot/bot"
 import { WEBSITE_URL, WEBSITE_ROUTES } from "@/shared/constants/links"
 import { Story } from "@/shared/types/story"
-import { setStoryTags } from "./setStoryTags"
-import { setStoryCardOptions } from "./options"
+import { setStoryTags } from "./model/helpers/setStoryTags"
+import { setStoryCardOptions } from "./model/options"
 import { setPath } from "@/shared/utils/setPath"
 
 export const sendStoryCard = async (chatId: number, story: Story) => {

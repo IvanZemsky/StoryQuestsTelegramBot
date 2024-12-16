@@ -40,12 +40,12 @@ async function sendPage(chatId: number, query: string | null, pageNumber: number
       if (stories.length > 0) {
          stories.forEach(async (story) => await sendStoryCard(chatId, story))
       } else {
-         await BOT.sendMessage(chatId, "No stories found on this page.")
+         await BOT.sendMessage(chatId, "0️⃣No stories found on this page.")
       }
    } catch (error) {
       await BOT.sendMessage(
          chatId,
-         "An error occurred while fetching results. Please try again.",
+         "❌An error occurred while fetching results. Please try again.",
       )
       console.error("Error fetching results:", error)
    }
@@ -82,11 +82,11 @@ async function sendSearchResult(
       case "invalidPage":
          await BOT.sendMessage(
             chatId,
-            `Invalid page number. Please enter a number between 1 and ${pageCount}.`,
+            `⚠️Invalid page number. Please enter a number between 1 and ${pageCount}.`,
          )
          break
       case "cancelled":
-         await BOT.sendMessage(chatId, "Search cancelled.")
+         await BOT.sendMessage(chatId, "⏹️Search cancelled.")
          break
    }
 }

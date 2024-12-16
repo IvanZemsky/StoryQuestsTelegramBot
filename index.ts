@@ -26,10 +26,11 @@ BOT.on("callback_query", async (ctx) => {
    const chatId = ctx.message.chat.id
    const queryId = ctx.id
    const data = ctx.data.split(":")
+   const messageId = ctx.message.message_id
 
    switch (data[0]) {
       case Actions.SetNextScene:
-         await setNextScene(chatId, queryId, data)
+         await setNextScene(chatId, messageId, queryId, data)
          break
       default:
          BOT.sendMessage(chatId, "Command not found")

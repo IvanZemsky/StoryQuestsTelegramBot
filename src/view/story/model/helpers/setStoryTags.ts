@@ -1,4 +1,4 @@
-import { storyTagEmojis } from "./constants"
+import { storyTagEmojis } from "../constants"
 
 export const setStoryTags = (tags: string[]): string => {
    return tags

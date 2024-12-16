@@ -11,12 +11,12 @@ export const displayPagination = async (
 ): Promise<void> => {
    const pages = calculatePages(totalCount, limit)
    if (totalCount === 0) {
-      await BOT.sendMessage(chatId, "Nothing found")
+      await BOT.sendMessage(chatId, "0️⃣Nothing found")
       return
    } else {
       await BOT.sendMessage(
          chatId,
-         `Found ${totalCount} stories across ${pages} pages. Select a page (1-${pages}) or enter a search query:`,
+         `✅Found ${totalCount} stories across ${pages} pages. Select a page (1-${pages}) or enter a search query:`,
       )
    }
 }
