@@ -1,4 +1,4 @@
-import { BOT } from "@/bot/bot"
+import { BOT } from "@/bot"
 import { Scene } from "@/shared/types/scene"
 import { InlineKeyboardMarkup, SendPhotoOptions } from "node-telegram-bot-api"
 

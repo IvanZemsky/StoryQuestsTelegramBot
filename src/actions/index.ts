@@ -1,0 +1,1 @@
+export { setNextScene } from "./setNextScene";

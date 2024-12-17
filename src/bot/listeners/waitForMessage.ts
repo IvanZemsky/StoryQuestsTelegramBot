@@ -1,5 +1,5 @@
 import { Message } from "node-telegram-bot-api"
-import { BOT } from "../bot"
+import { BOT } from ".."
 
 export const waitForMessage = async (chatId: number): Promise<Message> => {
    return new Promise((resolve, reject) => {

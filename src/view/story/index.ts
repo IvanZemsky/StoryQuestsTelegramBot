@@ -1,4 +1,4 @@
-import { BOT } from "@/bot/bot"
+import { BOT } from "@/bot"
 import { WEBSITE_URL, WEBSITE_ROUTES } from "@/shared/constants/links"
 import { Story } from "@/shared/types/story"
 import { setStoryTags } from "./model/helpers/setStoryTags"

@@ -1,7 +1,7 @@
 {
   "name": "sq-telegram-1",
   "version": "1.0.0",
-  "description": "",
+  "description": "Telegram bot for playing text story quests",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.ts",

@@ -1,6 +1,5 @@
 import axios from "axios"
-
-export const API_URL = process.env.API_URL
+import { API_URL } from "../constants/process"
 
 export const API = axios.create({
    baseURL: API_URL,

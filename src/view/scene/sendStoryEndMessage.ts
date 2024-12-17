@@ -1,4 +1,4 @@
-import { BOT } from "@/bot/bot";
+import { BOT } from "@/bot";
 
 export async function sendStoryEndMessage(chatId: number) {
    await BOT.sendMessage(chatId, "*This is the end of the story*", {

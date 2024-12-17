@@ -1,4 +1,4 @@
-import { BOT } from "@/bot/bot"
+import { BOT } from "@/bot"
 import { waitForMessage } from "@/bot/listeners/waitForMessage"
 import { storyService } from "@/services/story"
 import { pageLimit } from "@/shared/api/constants"
@@ -40,12 +40,12 @@ async function sendPage(chatId: number, query: string | null, pageNumber: number
       if (stories.length > 0) {
          stories.forEach(async (story) => await sendStoryCard(chatId, story))
       } else {
-         await BOT.sendMessage(chatId, "0️⃣No stories found on this page.")
+         await BOT.sendMessage(chatId, "0️⃣ No stories found on this page.")
       }
    } catch (error) {
       await BOT.sendMessage(
          chatId,
-         "❌An error occurred while fetching results. Please try again.",
+         "❌ An error occurred while fetching results. Please try again.",
       )
       console.error("Error fetching results:", error)
    }
@@ -82,20 +82,27 @@ async function sendSearchResult(
       case "invalidPage":
          await BOT.sendMessage(
             chatId,
-            `⚠️Invalid page number. Please enter a number between 1 and ${pageCount}.`,
+            `⚠️ Invalid page number. Please enter a number between 1 and ${pageCount}.`,
          )
          break
       case "cancelled":
-         await BOT.sendMessage(chatId, "⏹️Search cancelled.")
+         await BOT.sendMessage(chatId, "⏹️ Search cancelled.")
          break
    }
 }
 
-export async function searchProcess(chatId: number) {
+export async function searchProcess(
+   chatId: number,
+   search: "all" | "userInput" = "userInput",
+) {
    try {
-      BOT.sendMessage(chatId, "🔍 Please enter your search query:")
+      let searchQuery: string | null = null
 
-      const { text: searchQuery } = await waitForMessage(chatId)
+      if (search === "userInput") {
+         BOT.sendMessage(chatId, "🔍 Please enter your search query:")
+         const { text } = await waitForMessage(chatId)
+         searchQuery = text
+      }
 
       const { totalCount, pageCount } = await getPreliminaryStoriesData(searchQuery)
       await displayPagination(chatId, totalCount, pageLimit)

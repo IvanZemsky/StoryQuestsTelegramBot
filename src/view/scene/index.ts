@@ -1,4 +1,4 @@
-import { BOT } from "@/bot/bot"
+import { BOT } from "@/bot"
 import { Scene } from "@/shared/types/scene"
 import { setSceneOptions } from "./model/options"
 import { sendStoryEndMessage } from "./sendStoryEndMessage"
