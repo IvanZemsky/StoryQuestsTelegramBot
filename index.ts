@@ -1,6 +1,6 @@
 import dotenv from "dotenv"
-import "./server"
 import { startBot } from "@/bot"
+import "./server"
 
 dotenv.config()
 
