@@ -1,6 +1,11 @@
 import { BotCommandInfo } from "@/bot/types";
 import { getAllStories, search, start } from "@/commands";
-import { Commands } from "@/shared/constants/commands";
+
+export enum Commands {
+   Start = '/start',
+   Search = '/search',
+   GetAllStories = '/getallstories'
+}
 
 export const BOT_COMMANDS: BotCommandInfo[] = [
    {

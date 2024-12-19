@@ -1,8 +1,8 @@
 import { BOT } from "@/bot"
 import { Scene } from "@/shared/types/scene"
 import { setSceneOptions } from "./model/options"
-import { sendStoryEndMessage } from "./sendStoryEndMessage"
-import { editSceneCard } from "./editSceneCard"
+import { sendStoryEndMessage } from "./helpers/sendStoryEndMessage"
+import { editSceneCard } from "./helpers/editSceneCard"
 
 export const sendSceneCard = async (chatId: number, scene: Scene, messageId?: number) => {
    try {

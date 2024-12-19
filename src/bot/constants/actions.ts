@@ -1,6 +1,9 @@
 import { setNextScene } from "@/actions";
 import { BotActionInfo } from "@/bot/types";
-import { Actions } from "@/shared/constants/actions";
+
+export enum Actions {
+   SetNextScene = 'sns',
+}
 
 export const BOT_ACTIONS: BotActionInfo[] = [
    {

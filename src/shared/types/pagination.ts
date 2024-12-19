@@ -5,5 +5,5 @@ export type PaginationData = {
 
 export type SelectedPageData = {
    page: number | null
-   data: "cancelled" | "validPage" | "invalidPage"
+   data: "cancelled" | "validPage" | "invalidPage" | "stopped"
 }

@@ -1,8 +1,10 @@
 import { BOT } from "@/bot"
 import { waitForMessage } from "@/bot/listeners/waitForMessage"
 import { pageLimit } from "@/shared/api/constants"
-import { displayPagination } from "@/shared/helpers/pagination"
+import { displayPagination, getSelectedPage } from "@/shared/helpers/pagination"
 import { SearchProcess } from "./steps"
+import { isValueMatches } from "@/shared/utils/isValueMatches"
+import { Commands } from "@/bot/constants/commands"
 
 export async function searchProcess(
    chatId: number,
@@ -12,8 +14,11 @@ export async function searchProcess(
       let searchQuery: string | null = null
 
       if (search === "userInput") {
-         BOT.sendMessage(chatId, "🔍 Please enter your search query:")
+         BOT.sendMessage(chatId, "🔍 Enter your search query:")
          const { text } = await waitForMessage(chatId)
+
+         if (isValueMatches(Commands, text)) return
+
          searchQuery = text
       }
 
@@ -25,7 +30,10 @@ export async function searchProcess(
       if (totalCount === 0) return
 
       while (true) {
-         const selectedPageData = await SearchProcess.getSelectedPage(chatId, pageCount)
+         const selectedPageData = await getSelectedPage(chatId, pageCount)
+         
+         if (selectedPageData.data === 'stopped') return
+
          await SearchProcess.sendSearchResult(
             chatId,
             searchQuery,

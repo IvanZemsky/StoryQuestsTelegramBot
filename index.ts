@@ -5,6 +5,7 @@ import "./server"
 dotenv.config()
 
 function bootstrap() {
+   console.clear()
    startBot()
 }
 

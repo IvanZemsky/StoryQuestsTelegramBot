@@ -1,4 +1,4 @@
-import { Actions } from "@/shared/constants/actions"
+import { Actions } from "@/bot/constants/actions"
 import { setCallbackData } from "@/shared/helpers/setCallbackData"
 import { SendPhotoOptions } from "node-telegram-bot-api"
 

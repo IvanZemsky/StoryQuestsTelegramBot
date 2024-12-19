@@ -1,11 +1,10 @@
 import { BOT } from "@/bot"
-import { waitForMessage } from "@/bot/listeners/waitForMessage"
 import { storyService } from "@/services/story"
 import { pageLimit } from "@/shared/api/constants"
 import { calculatePages } from "@/shared/helpers/pagination"
 import { Story } from "@/shared/types/story"
 import { sendStoryCard } from "@/view/story"
-import { PaginationData, SelectedPageData } from "./types"
+import { PaginationData, SelectedPageData } from "@/shared/types/pagination"
 
 export namespace SearchProcess {
    export async function getPreliminaryStoriesData(
@@ -46,27 +45,6 @@ export namespace SearchProcess {
             "❌ An error occurred while fetching results. Please try again.",
          )
          console.error("Error fetching results:", error)
-      }
-   }
-
-   export async function getSelectedPage(
-      chatId: number,
-      pages: number,
-   ): Promise<SelectedPageData> {
-      const pageMessage = await waitForMessage(chatId)
-      const pageInput = pageMessage.text.trim().toLowerCase()
-
-      if (pageInput === "cancel") {
-         return { page: null, data: "cancelled" }
-      }
-
-      const pageNumber = parseInt(pageInput, 10)
-      const isValid = !isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= pages
-
-      if (isValid) {
-         return { page: pageNumber, data: "validPage" }
-      } else {
-         return { page: null, data: "invalidPage" }
       }
    }
 
