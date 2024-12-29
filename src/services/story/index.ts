@@ -1,9 +1,9 @@
 import { Story } from "@/shared/types/story"
-import axios from "axios"
 import { SearchStoryArgs } from "./types"
 import { API } from "@/shared/api/config"
 import { APIEndpoints } from "@/shared/api/constants"
 import { setPath } from "@/shared/utils/setPath"
+import { logApiError } from "@/shared/helpers/logApiError"
 
 class StoryService {
    async getStories(
@@ -19,11 +19,7 @@ class StoryService {
             totalCount: +response.headers["x-total-count"],
          }
       } catch (error) {
-         if (axios.isAxiosError(error)) {
-            console.error("Axios error:", error.response?.data || error.message)
-         } else {
-            console.error("Unexpected error:", error)
-         }
+         logApiError(error)
          throw error
       }
    }
@@ -33,11 +29,7 @@ class StoryService {
          const response = await API.get(setPath(APIEndpoints.Stories, id))
          return response.data
       } catch (error) {
-         if (axios.isAxiosError(error)) {
-            console.error("Axios error:", error.response?.data || error.message)
-         } else {
-            console.error("Unexpected error:", error)
-         }
+         logApiError(error)
          throw error
       }
    }

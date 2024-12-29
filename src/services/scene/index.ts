@@ -1,8 +1,8 @@
 import { API } from "@/shared/api/config"
 import { APIEndpoints } from "@/shared/api/constants"
+import { logApiError } from "@/shared/helpers/logApiError"
 import { Scene } from "@/shared/types/scene"
 import { setPath } from "@/shared/utils/setPath"
-import axios from "axios"
 
 class SceneService {
    async getScene(storyId: string, nextSceneId: string): Promise<Scene> {
@@ -15,11 +15,7 @@ class SceneService {
          })
          return response.data
       } catch (error) {
-         if (axios.isAxiosError(error)) {
-            console.error("Axios error:", error.response?.data || error.message)
-         } else {
-            console.error("Unexpected error:", error)
-         }
+         logApiError(error)
          throw error
       }
    }

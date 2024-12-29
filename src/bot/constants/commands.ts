@@ -10,17 +10,17 @@ export enum Commands {
 export const BOT_COMMANDS: BotCommandInfo[] = [
    {
       text: Commands.Start,
-      description: "Start using the bot",
+      description: "🔄 Restart the bot",
       handler: start
    },
    {
       text: Commands.Search,
-      description: "Search for the stories",
+      description: "🔍 Search for the stories",
       handler: search
    },
    {
       text: Commands.GetAllStories,
-      description: "Get all stories",
+      description: "📚 Get all stories",
       handler: getAllStories
    }
 ]
