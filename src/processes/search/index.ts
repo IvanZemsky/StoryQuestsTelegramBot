@@ -23,6 +23,7 @@ export async function searchProcess(
       }
 
       const { totalCount, pageCount } = await SearchProcess.getPreliminaryStoriesData(
+         chatId,
          searchQuery,
       )
       await displayPagination(chatId, totalCount, pageLimit)
@@ -31,8 +32,8 @@ export async function searchProcess(
 
       while (true) {
          const selectedPageData = await getSelectedPage(chatId, pageCount)
-         
-         if (selectedPageData.data === 'stopped') return
+
+         if (selectedPageData.data === "stopped") return
 
          await SearchProcess.sendSearchResult(
             chatId,

@@ -3,13 +3,14 @@ import { Scene } from "@/shared/types/scene"
 import { setSceneOptions } from "./model/options"
 import { sendStoryEndMessage } from "./model/helpers/sendStoryEndMessage"
 import { editSceneCard } from "./model/helpers/editSceneCard"
+import { START_SCENE_NUMBER } from "@/shared/api/constants"
 
 export const sendSceneCard = async (chatId: number, scene: Scene, messageId?: number) => {
    try {
       const caption = `*${scene.title}*\n${scene.description}`
       const options = setSceneOptions(caption, scene.storyId, scene.answers)
 
-      if (messageId && scene.sceneId !== "scene_1") {
+      if (messageId && scene.number !== START_SCENE_NUMBER) {
          await editSceneCard(chatId, messageId, scene, options)
 
          if (scene.type === "end") {

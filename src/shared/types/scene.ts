@@ -11,7 +11,7 @@ export type NextSceneData = {
 
 export type Scene = {
    _id: string
-   sceneId: string
+   number: string
    storyId: string
    title: string
    description: string

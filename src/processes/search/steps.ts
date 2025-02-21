@@ -8,7 +8,10 @@ import { PaginationData, SelectedPageData } from "@/shared/types/pagination"
 
 export const SearchProcess = { getPreliminaryStoriesData, sendSearchResult, sendPage }
 
-async function getPreliminaryStoriesData(query: string | null): Promise<PaginationData> {
+async function getPreliminaryStoriesData(
+   chatId: number,
+   query: string | null,
+): Promise<PaginationData> {
    try {
       const { totalCount } = await storyService.getStories({
          search: query,
@@ -20,6 +23,10 @@ async function getPreliminaryStoriesData(query: string | null): Promise<Paginati
 
       return { totalCount, pageCount }
    } catch (error) {
+      await BOT.sendMessage(
+         chatId,
+         "❌ An error occurred while fetching results. Please try again.",
+      )
       throw new Error(error)
    }
 }
@@ -29,7 +36,7 @@ async function sendPage(chatId: number, query: string | null, pageNumber: number
       const storiesResponse = await storyService.getStories({
          search: query,
          limit: pageLimit,
-         page: pageNumber - 1,
+         page: pageNumber,
       })
       const stories: Story[] = storiesResponse.data
 

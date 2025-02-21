@@ -4,3 +4,5 @@ export enum APIEndpoints {
 }
 
 export const pageLimit = 5
+
+export const START_SCENE_NUMBER = "1"

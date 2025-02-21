@@ -1,4 +1,5 @@
 import { Actions } from "@/bot/constants/actions"
+import { START_SCENE_NUMBER } from "@/shared/api/constants"
 import { setCallbackData } from "@/shared/helpers/setCallbackData"
 import { SendPhotoOptions } from "node-telegram-bot-api"
 
@@ -13,7 +14,11 @@ export const setStoryCardOptions = (
          [
             {
                text: "Start",
-               callback_data: setCallbackData(Actions.SetNextScene, storyId, "scene_1"),
+               callback_data: setCallbackData(
+                  Actions.SetNextScene,
+                  storyId,
+                  START_SCENE_NUMBER,
+               ),
             },
          ],
       ],
